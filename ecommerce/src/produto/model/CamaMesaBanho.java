@@ -4,7 +4,7 @@ public class CamaMesaBanho extends produto{
 	
 	private String cor;
 
-	public CamaMesaBanho(float preco, String titulo, int estoque) {
+	public CamaMesaBanho(float preco, String titulo, int estoque, String cor) {
 		super(preco, titulo, estoque);
 		this.cor =cor;
 		

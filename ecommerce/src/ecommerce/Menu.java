@@ -5,14 +5,20 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import produto.model.produto;
 import produto.model.UtensilhosCozinha;
+import produto.controller.produtoController;
 import produto.model.CamaMesaBanho;
 
 public class Menu {
 
 	public static void main(String[] args) {
+		produtoController produtos = new produtoController();
 	
 		Scanner leia = new Scanner(System.in);
 		 int opcao;
+		 float preco;
+		 String titulo, cor;
+		 int estoque,tipo;
+		 
 		 
 		 while (true) {
 
@@ -54,6 +60,7 @@ public class Menu {
 				switch (opcao) {
 					case 1:
 						System.out.println("Listar todos os produtos\n\n");
+						produtos.listarTodas();
 						keyPress();
 
 						break;
@@ -69,6 +76,32 @@ public class Menu {
 						break;
 					case 4:
 						System.out.println("Cadastrar produto \n\n");
+						System.out.println("Digite o nome do produto: ");
+						titulo=leia.next();
+						System.out.println("Digite o preço: ");
+						preco=leia.nextFloat();
+						System.out.println("Digite o estoque");
+						estoque=leia.nextInt();
+						do {
+							System.out.println("Digite o tipo do produto (1-Cama e Mesa) (2 Cozinha) ");
+							tipo=leia.nextInt();
+						} while(tipo<1 && tipo>2);
+							
+							switch(tipo) {
+								case 1 -> {
+									System.out.println("Digite a cor ");
+									cor=leia.next();
+									produtos.cadastrar(new CamaMesaBanho(preco, titulo, estoque,cor));
+									break;
+									}
+								case 2 -> {
+									produtos.cadastrar(new UtensilhosCozinha(preco, titulo, estoque));
+									break;
+								}
+							}
+							
+							
+						
 						keyPress();
 
 						break;

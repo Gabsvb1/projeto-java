@@ -1,6 +1,6 @@
 package produto.model;
 
-public class produto {
+public abstract class produto {
 	
 	public produto(float preco, String titulo, int estoque) {
 		this.preco = preco;
@@ -40,6 +40,18 @@ public class produto {
 			return true;
 				
 	}
+	
+	public boolean repor (int unidade) {
+		if(unidade < 0) {
+			System.out.println("\n Não é possivel adicionar");
+			return false;
+		}
+			
+		this.setEstoque(this.getEstoque() + unidade);
+		return true;
+			
+}
+	
 
   public void visualizar() {
 	  
