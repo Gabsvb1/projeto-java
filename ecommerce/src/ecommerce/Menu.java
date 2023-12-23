@@ -17,7 +17,8 @@ public class Menu {
 		 int opcao;
 		 float preco;
 		 String titulo, cor;
-		 int estoque,tipo;
+		 int estoque,tipo,unidade;
+		 
 		 
 		 
 		 while (true) {
@@ -33,7 +34,8 @@ public class Menu {
 				System.out.println("            3 - Excluir produto                      ");
 				System.out.println("            4 - Cadastrar produto                    ");                              
 				System.out.println("            5 - Incluir produto no Estoque           ");
-				System.out.println("            6 - Sair                                 ");
+				System.out.println("            6 - Comprar                              ");
+				System.out.println("            7 - Sair                                 ");
 				System.out.println("                                                     ");
 				System.out.println("*****************************************************");
 				System.out.println("Entre com a opção desejada:                          ");
@@ -49,7 +51,7 @@ public class Menu {
 					opcao=0;
 				}
 
-				if (opcao == 6) {
+				if (opcao == 7) {
 					System.out.println("\n Obrigado por comprar conosco!");
 	                 leia.close();
 					System.exit(0);
@@ -66,11 +68,18 @@ public class Menu {
 						break;
 					case 2:
 						System.out.println("Buscar produto por nome\n\n");
+						
+						System.out.println("Digite o nome do produto: ");
+						titulo = leia.next();
+						
+						produtos.procurarPorNome(titulo);
 						keyPress();
-
 						break;
 					case 3:
 						System.out.println("Excluir produto \n\n");
+						System.out.println("Digite o nome do produto: ");
+						titulo = leia.next();
+						produtos.excluir(titulo);
 						keyPress();
 
 						break;
@@ -107,8 +116,23 @@ public class Menu {
 						break;
 					case 5:
 						System.out.println("Incluir produto no Estoque \n\n");
+						System.out.println("Digite o nome do produto: ");
+						titulo = leia.next();
+						System.out.println("Digite a quantidade a ser adicionada: ");
+						unidade = leia.nextInt();
+						
+						produtos.incluir(unidade, titulo);
 						keyPress();
-					case 6: 
+					case 6:
+						System.out.println("Comprar \n\n");
+						System.out.println("digite o nome do produto: ");
+						titulo = leia.next();
+						System.out.println("digite a quantidade: ");
+						unidade = leia.nextInt();
+						produtos.comprar(unidade, titulo);
+						keyPress();
+						break;
+					case 7: 
 						System.out.println("Sair \n\n");
 						keyPress();
 				

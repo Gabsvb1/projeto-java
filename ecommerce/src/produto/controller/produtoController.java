@@ -20,13 +20,28 @@ public class produtoController implements produtoRepository {
 
 	@Override
 	public void procurarPorNome(String titulo) {
-		// TODO Auto-generated method stub
+		var produto = buscarNaCollection(titulo);
+		
+		if(produto != null)
+			produto.visualizar();
+		else
+		
+			System.out.println("\n Produto não encontrado!");
 		
 	}
 
 	@Override
 	public void excluir(String titulo) {
-		// TODO Auto-generated method stub
+		var buscarProduto = buscarNaCollection(titulo);
+		System.out.println(buscarProduto);
+		
+		if(buscarProduto != null) {
+			if(listaProdutos.remove(buscarProduto) == true)
+				System.out.println("\n O produto " + titulo + " foi excluido com sucesso!" );
+			
+		}else {
+			System.out.println("\n O produto " + titulo + " não foi encontrado!");
+		}
 		
 	}
 
@@ -38,15 +53,49 @@ public class produtoController implements produtoRepository {
 	}
 
 	@Override
-	public void incluir(int unidade) {
-		// TODO Auto-generated method stub
+	public void incluir(int unidade , String titulo) {
+		var buscarProduto = buscarNaCollection(titulo);
+		System.out.println(buscarProduto);
+		
+		if(buscarProduto != null) {
+			buscarProduto.setEstoque(buscarProduto.getEstoque() + unidade);
+			
+			listaProdutos.set(listaProdutos.indexOf(buscarProduto), buscarProduto);
+			
+			System.out.println("Estoque atualizado!");
+		}
 		
 	}
 
 	@Override
-	public void comprar(int unidade) {
-		// TODO Auto-generated method stub
+	public void comprar(int unidade, String titulo) {
+		var buscarProduto = buscarNaCollection(titulo);
+		System.out.println(buscarProduto);
+		
+		if(buscarProduto != null) {
+			if(buscarProduto.getEstoque() < unidade) {
+				System.out.println("Produto sem estoque!");
+			}else {
+				buscarProduto.setEstoque(buscarProduto.getEstoque() - unidade);
+				
+				listaProdutos.set(listaProdutos.indexOf(buscarProduto), buscarProduto);
+				
+				System.out.println("Compra efetuada!");
+			}
+			
+		}
 		
 	}
-
+	
+	public produto buscarNaCollection(String titulo) {
+		
+		for (var produto : listaProdutos) {
+			System.out.println(produto.getTitulo());
+			if (produto.getTitulo().equals(titulo) ) {
+				return produto;
+			}
+		}
+		
+		return null;
+	}
 }
